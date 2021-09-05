@@ -1,11 +1,15 @@
 class HomeImagesModel {
-  static List<HomeImages>? images;
+  static List<HomeItems>? images;
 }
 
-class HomeImages {
+class HomeShapesModel {
+  static List<HomeItems>? shapes;
+}
+
+class HomeItems {
   final String shape, imageUrl, id;
 
-  HomeImages({required this.shape, required this.imageUrl, required this.id});
+  HomeItems({required this.shape, required this.imageUrl, required this.id});
 
   Map<String, dynamic> toMap() {
     return {
@@ -15,8 +19,8 @@ class HomeImages {
     };
   }
 
-  factory HomeImages.fromMap(Map<String, dynamic> map) {
-    return HomeImages(
+  factory HomeItems.fromMap(Map<String, dynamic> map) {
+    return HomeItems(
       id: map["id"],
       shape: map["shape"],
       imageUrl: map["imageUrl"],
