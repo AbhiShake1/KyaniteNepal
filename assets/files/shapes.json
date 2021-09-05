@@ -1,0 +1,64 @@
+{
+  "shapes": [
+    {
+      "id": "1",
+      "shape": "Beetle Leaf",
+      "imageUrl": "https://kyanitenepal.com/wp-content/uploads/2019/04/emerald.png"
+    },
+    {
+      "id": "2",
+      "shape": "Cushion",
+      "imageUrl": "https://kyanitenepal.com/wp-content/uploads/2019/04/round.png"
+    },
+    {
+      "id": "3",
+      "shape": "Heart",
+      "imageUrl": "https://kyanitenepal.com/wp-content/uploads/2019/04/cushion.png"
+    },
+    {
+      "id": "4",
+      "shape": "Marquise",
+      "imageUrl": "https://kyanitenepal.com/wp-content/uploads/2019/04/emerald.png"
+    },
+    {
+      "id": "5",
+      "shape": "Oval",
+      "imageUrl": "https://kyanitenepal.com/wp-content/uploads/2019/04/round.png"
+    },
+    {
+      "id": "6",
+      "shape": "Round",
+      "imageUrl": "https://kyanitenepal.com/wp-content/uploads/2019/04/cushion.png"
+    },
+    {
+      "id": "1",
+      "shape": "Beetle Leaf",
+      "imageUrl": "https://kyanitenepal.com/wp-content/uploads/2019/04/emerald.png"
+    },
+    {
+      "id": "2",
+      "shape": "Cushion",
+      "imageUrl": "https://kyanitenepal.com/wp-content/uploads/2019/04/round.png"
+    },
+    {
+      "id": "3",
+      "shape": "Heart",
+      "imageUrl": "https://kyanitenepal.com/wp-content/uploads/2019/04/cushion.png"
+    },
+    {
+      "id": "4",
+      "shape": "Marquise",
+      "imageUrl": "https://kyanitenepal.com/wp-content/uploads/2019/04/emerald.png"
+    },
+    {
+      "id": "5",
+      "shape": "Oval",
+      "imageUrl": "https://kyanitenepal.com/wp-content/uploads/2019/04/round.png"
+    },
+    {
+      "id": "6",
+      "shape": "Round",
+      "imageUrl": "https://kyanitenepal.com/wp-content/uploads/2019/04/cushion.png"
+    }
+  ]
+}

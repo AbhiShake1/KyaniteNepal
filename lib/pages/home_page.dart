@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
   loadShapes() async {
     final shapesJson = (await get(
       Uri.parse(
-          "https://raw.githubusercontent.com/AbhiShake1/KyaniteNepal/main/assets/files/gems.json"),
+          "https://raw.githubusercontent.com/AbhiShake1/KyaniteNepal/main/assets/files/shapes.json"),
     ))
         .body;
 
