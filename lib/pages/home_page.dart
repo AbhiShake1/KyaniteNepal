@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart';
 import 'package:kyanite_nepal/model/home_images_model.dart';
 import 'package:kyanite_nepal/util/app_themes.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -42,7 +43,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               const _SocialLinks(),
               (HomeImagesModel.images?.isNotEmpty ?? false)
-                  ? const _HomeImageSwiper()
+                  ? _HomeImageSwiper()
                   : const CircularProgressIndicator().p64(),
             ],
           ),
@@ -58,8 +59,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   loadData() async {
-    final imagesJson = await rootBundle.loadString("assets/files/gems.json");
-
+    //final imagesJson = await rootBundle.loadString("assets/files/gems.json");
+    final imagesJson = (await get(
+      Uri.parse(
+          "https://raw.githubusercontent.com/AbhiShake1/KyaniteNepal/main/assets/files/gems.json"),
+    ))
+        .body;
     final decodedJson = jsonDecode(imagesJson);
 
     final images = decodedJson["gems"];
@@ -116,8 +121,6 @@ class _SocialLinks extends StatelessWidget {
 }
 
 class _HomeImageSwiper extends StatelessWidget {
-  const _HomeImageSwiper({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return VxSwiper.builder(
@@ -138,7 +141,8 @@ class _HomeImageSwiper extends StatelessWidget {
             )
             .color(context.theme.appBarTheme.backgroundColor!)
             .make()
-            .px16().py64();
+            .px16()
+            .py64();
       },
     );
   }

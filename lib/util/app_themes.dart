@@ -6,7 +6,7 @@ class AppThemes {
     return ThemeData(
       //primarySwatch: Colors.primaries.first,
       accentColor: Vx.blue900,
-      //cardColor: Vx.gray300,
+      //cardColor: Colors.white,
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.white,
       ),
