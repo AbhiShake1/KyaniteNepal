@@ -74,6 +74,7 @@ class _HomePageState extends State<HomePage> {
           "https://raw.githubusercontent.com/AbhiShake1/KyaniteNepal/main/assets/files/shapes.json"),
     ))
         .body;
+    //await rootBundle.loadString("assets/files/shapes.json");
 
     final decodedJson = jsonDecode(shapesJson);
 
@@ -124,6 +125,8 @@ class _HomeShapesGridState extends State<_HomeShapesGrid> {
             .make(),
         GridView.builder(
           shrinkWrap: true,
+          //disable internal scrolling
+          physics: const NeverScrollableScrollPhysics(),
           itemCount: HomeShapesModel.shapes!.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
