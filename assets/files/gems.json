@@ -1,0 +1,19 @@
+{
+  "gems": [
+    {
+      "id": "1",
+      "shape": "Oval",
+      "imageUrl": "https://kyanitenepal.com/wp-content/uploads/2019/04/emerald.png"
+    },
+    {
+      "id": "2",
+      "shape": "Rounded",
+      "imageUrl": "https://kyanitenepal.com/wp-content/uploads/2019/04/round.png"
+    },
+    {
+      "id": "3",
+      "shape": "Cushion",
+      "imageUrl": "https://kyanitenepal.com/wp-content/uploads/2019/04/cushion.png"
+    }
+  ]
+}
