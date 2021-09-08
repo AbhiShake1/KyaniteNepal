@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kyanite_nepal/pages/home_page.dart';
+import 'package:kyanite_nepal/page/home_page.dart';
 import 'package:kyanite_nepal/util/app_themes.dart';
 
 void main() {

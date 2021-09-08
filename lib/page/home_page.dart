@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
+import 'package:kyanite_nepal/component/app_bottom_bar.dart';
 import 'package:kyanite_nepal/model/home_items_model.dart';
 import 'package:kyanite_nepal/util/app_themes.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,8 +30,17 @@ class _HomePageState extends State<HomePage> {
       home: Scaffold(
         appBar: AppBar(
           elevation: 0,
+          actions: [
+            Builder(
+              builder: (context) => IconButton(
+                onPressed: () => Scaffold.of(context).openEndDrawer(),
+                icon: const Icon(CupertinoIcons.person),
+              ),
+            ).px16(),
+          ],
           title: "KYANITE NEPAL"
               .text
+              .maxLines(1)
               .bold
               .xl4
               .color(context.accentColor)
@@ -37,7 +49,27 @@ class _HomePageState extends State<HomePage> {
               )
               .make(),
         ),
-        endDrawer: const Drawer(),
+        endDrawer: Align(
+          alignment: Alignment.topCenter,
+          child: Column(
+            children: [
+              "dummyText".text.xl5.bold.make().py24(),
+              40.heightBox,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  "dummyText1".text.make(),
+                  "dummyText2".text.make(),
+                ],
+              ),
+            ],
+          )
+              .backgroundColor(Colors.transparent)
+              .card
+              .roundedLg
+              .make()
+              .h32(context),
+        ).px32().py64(),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -104,12 +136,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class _HomeShapesGrid extends StatefulWidget {
-  @override
-  State<_HomeShapesGrid> createState() => _HomeShapesGridState();
-}
-
-class _HomeShapesGridState extends State<_HomeShapesGrid> {
+class _HomeShapesGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -126,7 +153,8 @@ class _HomeShapesGridState extends State<_HomeShapesGrid> {
         GridView.builder(
           shrinkWrap: true,
           //disable internal scrolling
-          physics: const NeverScrollableScrollPhysics(),
+          physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics()),
           itemCount: HomeShapesModel.shapes!.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -137,6 +165,12 @@ class _HomeShapesGridState extends State<_HomeShapesGrid> {
             final shape = HomeShapesModel.shapes![index];
             return Card(
               color: context.theme.appBarTheme.backgroundColor!,
+              shadowColor: Colors.transparent,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(30),
+                ),
+              ),
               child: GridTile(
                 child: Image.network(shape.imageUrl),
                 header: GridTileBar(
@@ -144,9 +178,10 @@ class _HomeShapesGridState extends State<_HomeShapesGrid> {
                   title: shape.shape.text.bold.xl2.makeCentered(),
                 ),
               ),
-            ).box.withRounded(value: 40).clip(Clip.antiAlias).make().p16();
+            ).p16();
           },
-        ),
+        ).h48(context),
+        const AppBottomBar(),
       ],
     );
   }
@@ -159,18 +194,33 @@ class _SocialLinks extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        "Follow us".text.make(),
+        "Follow us"
+            .text
+            .textStyle(GoogleFonts.daysOne())
+            .scale(1.3)
+            .make()
+            .shimmer(
+              primaryColor: context.accentColor,
+            ),
         const Icon(
           FontAwesomeIcons.facebookF,
-          size: 15,
-        ).px4(),
+          size: 20,
+          color: Colors.blueAccent,
+        ).px16().shimmer(
+              primaryColor: Colors.blueAccent,
+              secondaryColor: Colors.lightBlueAccent,
+            ),
         const Icon(
           FontAwesomeIcons.instagram,
-          size: 15,
-        ).px4(),
+          size: 20,
+          color: Colors.pink,
+        ).px8().shimmer(
+              primaryColor: Colors.pink,
+              secondaryColor: Colors.red,
+            ),
         const WidthBox(0).expand(),
         OutlinedButton(
-          child: "+977-9858050646".text.color(context.accentColor).make(),
+          child: "CALL US".text.bold.color(context.accentColor).make(),
           onPressed: () => launch("tel://+9779858050646"),
           onLongPress: () {
             Clipboard.setData(
@@ -199,9 +249,11 @@ class _HomeImageSwiper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return VxSwiper.builder(
-      itemCount: HomeImagesModel.images!.length,
+      autoPlay: true,
       enlargeCenterPage: true,
-      aspectRatio: 1,
+      aspectRatio: context.isMobile ? 1 : 2,
+      scrollDirection: context.isMobile ? Axis.horizontal : Axis.vertical,
+      itemCount: HomeImagesModel.images!.length,
       itemBuilder: (context, index) {
         final image = HomeImagesModel.images![index];
         return VxBox(
@@ -211,13 +263,13 @@ class _HomeImageSwiper extends StatelessWidget {
             .bgImage(
               DecorationImage(
                 image: NetworkImage(image.imageUrl),
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
             )
             .color(context.theme.appBarTheme.backgroundColor!)
             .make()
             .px16()
-            .py64();
+            .py(context.isMobile ? 64 : 10);
       },
     );
   }
