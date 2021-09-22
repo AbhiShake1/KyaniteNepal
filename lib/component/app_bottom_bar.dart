@@ -6,18 +6,16 @@ class AppBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 36, 0, 0),
-      child: Column(
-        children: [
-          "example1".text.xl6.make().p64(),
-          "example2".text.xl6.make(),
-        ],
-      )
-          .box
-          .roundedLg
-          .color(context.theme.appBarTheme.backgroundColor!)
+    return VxArc(
+      height: 20,
+      edge: VxEdge.TOP,
+      child: VxBox()
           .width(context.screenWidth)
+          .height(context.screenHeight / 15)
+          .color(context.theme.appBarTheme.backgroundColor!)
+          .topRounded(
+            value: 30,
+          )
           .make(),
     );
   }

@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kyanite_nepal/page/home_page.dart';
 import 'package:kyanite_nepal/util/app_themes.dart';
+
+import 'component/app_scaffold.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +19,9 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: AppThemes.light(context),
       darkTheme: AppThemes.dark(context),
-      home: const HomePage(),
+      home: const AppScaffold(
+        body: HomePage(),
+      ),
     );
   }
 }

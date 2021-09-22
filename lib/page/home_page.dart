@@ -7,11 +7,12 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
-import 'package:kyanite_nepal/component/app_bottom_bar.dart';
+import 'package:kyanite_nepal/component/app_list_view.dart';
 import 'package:kyanite_nepal/model/home_items_model.dart';
-import 'package:kyanite_nepal/util/app_themes.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:velocity_x/velocity_x.dart';
+
+import 'home_detail_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,73 +24,21 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      themeMode: ThemeMode.system,
-      theme: AppThemes.light(context),
-      darkTheme: AppThemes.dark(context),
-      home: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          actions: [
-            Builder(
-              builder: (context) => IconButton(
-                onPressed: () => Scaffold.of(context).openEndDrawer(),
-                icon: const Icon(CupertinoIcons.person),
-              ),
-            ).px16(),
-          ],
-          title: "KYANITE NEPAL"
-              .text
-              .maxLines(1)
-              .bold
-              .xl4
-              .color(context.accentColor)
-              .textStyle(
-                GoogleFonts.abhayaLibre(),
-              )
-              .make(),
+    return AppListView(
+      children: [
+        const _SocialLinks(),
+        SizedBox(
+          height: context.screenHeight / 3,
+          child: (HomeImagesModel.images?.isNotEmpty ?? false)
+              ? _HomeImageSwiper()
+              : const CircularProgressIndicator().p64().shimmer().centered(),
         ),
-        endDrawer: Align(
-          alignment: Alignment.topCenter,
-          child: Column(
-            children: [
-              "dummyText".text.xl5.bold.make().py24(),
-              40.heightBox,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  "dummyText1".text.make(),
-                  "dummyText2".text.make(),
-                ],
-              ),
-            ],
-          )
-              .backgroundColor(Colors.transparent)
-              .card
-              .roundedLg
-              .make()
-              .h32(context),
-        ).px32().py64(),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const _SocialLinks(),
-              SizedBox(
-                height: context.screenHeight / 2,
-                child: (HomeImagesModel.images?.isNotEmpty ?? false)
-                    ? _HomeImageSwiper()
-                    : const CircularProgressIndicator()
-                        .p64()
-                        .shimmer()
-                        .centered(),
-              ),
-              (HomeShapesModel.shapes?.isNotEmpty ?? false)
-                  ? _HomeShapesGrid()
-                  : const LinearProgressIndicator().p64().shimmer(),
-            ],
-          ),
-        ),
-      ),
+        (HomeShapesModel.shapes?.isNotEmpty ?? false)
+            ? _HomeShapesGrid()
+            : const LinearProgressIndicator(
+                value: 100,
+              ).p64().shimmer(),
+      ],
     );
   }
 
@@ -147,14 +96,15 @@ class _HomeShapesGrid extends StatelessWidget {
             .textStyle(
               GoogleFonts.alegreyaSc(),
             )
-            .xl3
+            .xl5
             .underline
+            .bold
             .make(),
         GridView.builder(
           shrinkWrap: true,
-          //disable internal scrolling
           physics: const BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics()),
+            parent: AlwaysScrollableScrollPhysics(),
+          ),
           itemCount: HomeShapesModel.shapes!.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -163,25 +113,36 @@ class _HomeShapesGrid extends StatelessWidget {
           ),
           itemBuilder: (context, index) {
             final shape = HomeShapesModel.shapes![index];
-            return Card(
-              color: context.theme.appBarTheme.backgroundColor!,
-              shadowColor: Colors.transparent,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30),
+            return InkWell(
+              child: Card(
+                color: context.cardColor,
+                shadowColor: Colors.transparent,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(30),
+                  ),
+                ),
+                child: GridTile(
+                  child: Hero(
+                    tag: Key(shape.id),
+                    child: Image.network(shape.imageUrl),
+                  ),
+                  footer: GridTileBar(
+                    title: shape.shape.text.bold
+                        .color(context.theme.textSelectionColor)
+                        .xl2
+                        .makeCentered(),
+                  ),
                 ),
               ),
-              child: GridTile(
-                child: Image.network(shape.imageUrl),
-                header: GridTileBar(
-                  subtitle: "dummy text".text.makeCentered(),
-                  title: shape.shape.text.bold.xl2.makeCentered(),
+              onTap: () => context.navigator?.push(
+                MaterialPageRoute(
+                  builder: (context) => HomeDetailPage(shape),
                 ),
               ),
-            ).p16();
+            ).card.color(context.accentColor).roundedLg.make().p16();
           },
         ).h48(context),
-        const AppBottomBar(),
       ],
     );
   }
@@ -263,10 +224,10 @@ class _HomeImageSwiper extends StatelessWidget {
             .bgImage(
               DecorationImage(
                 image: NetworkImage(image.imageUrl),
-                fit: BoxFit.contain,
+                fit: BoxFit.fitHeight,
               ),
             )
-            .color(context.theme.appBarTheme.backgroundColor!)
+            .color(context.cardColor)
             .make()
             .px16()
             .py(context.isMobile ? 64 : 10);

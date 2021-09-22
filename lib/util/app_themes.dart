@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class AppThemes {
+
   static ThemeData light(BuildContext context) {
     return ThemeData(
       //primarySwatch: Colors.primaries.first,
-      accentColor: Vx.blue900,
-      //cardColor: Colors.white,
       appBarTheme: const AppBarTheme(
         backgroundColor: Colors.white,
       ),
+      textSelectionColor: Colors.black, colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Vx.blue500),
     );
   }
 
@@ -22,6 +22,7 @@ class AppThemes {
       appBarTheme: const AppBarTheme(
         backgroundColor: Vx.gray700,
       ),
+      textSelectionColor: Colors.white,
     );
   }
 }
