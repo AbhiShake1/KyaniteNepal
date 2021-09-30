@@ -8,14 +8,16 @@ class HomeShapesModel {
 
 class HomeItems {
   final String shape, imageUrl, id;
+  final int price;
 
-  HomeItems({required this.shape, required this.imageUrl, required this.id});
+  HomeItems({required this.shape, required this.imageUrl, required this.id, required this.price});
 
   Map<String, dynamic> toMap() {
     return {
       "id": id,
       "shape": shape,
       "imageUrl": imageUrl,
+      "price": price,
     };
   }
 
@@ -24,6 +26,7 @@ class HomeItems {
       id: map["id"],
       shape: map["shape"],
       imageUrl: map["imageUrl"],
+      price: map["price"],
     );
   }
 }

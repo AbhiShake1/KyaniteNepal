@@ -5,7 +5,9 @@ import 'package:kyanite_nepal/component/app_scaffold.dart';
 import 'package:kyanite_nepal/model/home_items_model.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class HomeDetailPage extends StatelessWidget {
+import 'app_page.dart';
+
+class HomeDetailPage extends AppPage {
   final HomeItems shape;
 
   const HomeDetailPage(this.shape, {Key? key}) : super(key: key);

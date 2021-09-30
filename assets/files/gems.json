@@ -3,17 +3,20 @@
     {
       "id": "1",
       "shape": "Oval",
-      "imageUrl": "https://th.bing.com/th/id/OIP.nh6A0y4codk4UHmeWTko1QHaEK?w=304&h=180&c=7&r=0&o=5&pid=1.7"
+      "imageUrl": "https://th.bing.com/th/id/OIP.nh6A0y4codk4UHmeWTko1QHaEK?w=304&h=180&c=7&r=0&o=5&pid=1.7",
+      "price": 500
     },
     {
       "id": "2",
       "shape": "Rounded",
-      "imageUrl": "https://th.bing.com/th/id/OIP.nh6A0y4codk4UHmeWTko1QHaEK?w=304&h=180&c=7&r=0&o=5&pid=1.7"
+      "imageUrl": "https://th.bing.com/th/id/OIP.nh6A0y4codk4UHmeWTko1QHaEK?w=304&h=180&c=7&r=0&o=5&pid=1.7",
+      "price": 500
     },
     {
       "id": "3",
       "shape": "Cushion",
-      "imageUrl": "https://th.bing.com/th/id/OIP.nh6A0y4codk4UHmeWTko1QHaEK?w=304&h=180&c=7&r=0&o=5&pid=1.7"
+      "imageUrl": "https://th.bing.com/th/id/OIP.nh6A0y4codk4UHmeWTko1QHaEK?w=304&h=180&c=7&r=0&o=5&pid=1.7",
+      "price": 500
     }
   ]
 }

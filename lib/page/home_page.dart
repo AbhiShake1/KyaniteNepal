@@ -12,9 +12,10 @@ import 'package:kyanite_nepal/model/home_items_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import 'app_page.dart';
 import 'home_detail_page.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends AppPage {
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -98,6 +99,7 @@ class _HomeShapesGrid extends StatelessWidget {
             )
             .xl5
             .underline
+            .heightLoose
             .bold
             .make(),
         GridView.builder(
@@ -127,11 +129,30 @@ class _HomeShapesGrid extends StatelessWidget {
                     tag: Key(shape.id),
                     child: Image.network(shape.imageUrl),
                   ),
-                  footer: GridTileBar(
+                  header: GridTileBar(
                     title: shape.shape.text.bold
                         .color(context.theme.textSelectionColor)
                         .xl2
                         .makeCentered(),
+                  ),
+                  footer: ButtonBar(
+                    alignment: MainAxisAlignment.spaceAround,
+                    buttonPadding: const EdgeInsets.all(0),
+                    children: [
+                      CupertinoButton(
+                        onPressed: () {},
+                        child: const FaIcon(
+                          CupertinoIcons.add_circled,
+                        ),
+                      ),
+                      "abc"
+                          .text
+                          .extraBold
+                          .color(context.theme.textSelectionColor)
+                          .xl3
+                          .heightRelaxed
+                          .make(),
+                    ],
                   ),
                 ),
               ),
@@ -163,22 +184,28 @@ class _SocialLinks extends StatelessWidget {
             .shimmer(
               primaryColor: context.accentColor,
             ),
-        const Icon(
-          FontAwesomeIcons.facebookF,
-          size: 20,
-          color: Colors.blueAccent,
-        ).px16().shimmer(
-              primaryColor: Colors.blueAccent,
-              secondaryColor: Colors.lightBlueAccent,
-            ),
-        const Icon(
-          FontAwesomeIcons.instagram,
-          size: 20,
-          color: Colors.pink,
-        ).px8().shimmer(
-              primaryColor: Colors.pink,
-              secondaryColor: Colors.red,
-            ),
+        InkWell(
+          onTap: () => launch("https://facebook.com"),
+          child: const Icon(
+            FontAwesomeIcons.facebookF,
+            size: 20,
+            color: Colors.blueAccent,
+          ).px16().shimmer(
+                primaryColor: Colors.blueAccent,
+                secondaryColor: Colors.lightBlueAccent,
+              ),
+        ),
+        InkWell(
+          onTap: () => launch("https://facebook.com"),
+          child: const Icon(
+            FontAwesomeIcons.instagram,
+            size: 20,
+            color: Colors.pink,
+          ).px8().shimmer(
+                primaryColor: Colors.pink,
+                secondaryColor: Colors.red,
+              ),
+        ),
         const WidthBox(0).expand(),
         OutlinedButton(
           child: "CALL US".text.bold.color(context.accentColor).make(),
