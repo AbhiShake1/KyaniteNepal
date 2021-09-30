@@ -15,7 +15,7 @@ import 'package:velocity_x/velocity_x.dart';
 import 'app_page.dart';
 import 'home_detail_page.dart';
 
-class HomePage extends AppPage {
+class HomePage extends AppPageStateful {
   const HomePage({Key? key}) : super(key: key);
 
   @override

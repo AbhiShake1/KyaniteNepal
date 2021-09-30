@@ -7,7 +7,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 import 'app_page.dart';
 
-class HomeDetailPage extends AppPage {
+class HomeDetailPage extends StatelessWidget {
   final HomeItems shape;
 
   const HomeDetailPage(this.shape, {Key? key}) : super(key: key);

@@ -8,10 +8,11 @@ class AppBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    navigateTo(AppPage instance) =>
-        context.navigator?.pushReplacement(MaterialPageRoute(
-          builder: (context) => instance,
-        ));
+    navigateTo(AppPage instance) => context.navigator?.pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => PageView(), //instance,
+          ),
+        );
     return VxArc(
       height: 20,
       edge: VxEdge.TOP,

@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 
 //this is the superclass and every page requiring navigation from bottom bar must extend it
 //shouldnt impact performance if we dont change states when not needed
-class AppPage extends StatefulWidget {
-  const AppPage({Key? key}) : super(key: key);
+abstract class AppPage extends Widget {}
 
-  @override
-  State<AppPage> createState() => _AppPageState();
+abstract class AppPageStateful extends StatefulWidget implements AppPage {
+  const AppPageStateful({Key? key}) : super(key: key);
 }
 
-class _AppPageState extends State<AppPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
+abstract class AppPageStateless extends StatelessWidget implements AppPage {
+  const AppPageStateless({Key? key}) : super(key: key);
 }
