@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kyanite_nepal/page/home_page.dart';
 import 'package:kyanite_nepal/util/app_themes.dart';
+import 'package:kyanite_nepal/util/preferences.dart';
+import 'package:kyanite_nepal/view/page/app_page.dart';
 
-import 'component/app_scaffold.dart';
-
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 
@@ -19,9 +18,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: AppThemes.light(context),
       darkTheme: AppThemes.dark(context),
-      home: const AppScaffold(
-        body: HomePage(),
-      ),
+      home: AppPages.pages[Preferences.getInt(Preferences.bottombarIndexKey)],
     );
   }
 }

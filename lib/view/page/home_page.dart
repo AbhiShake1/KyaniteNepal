@@ -7,15 +7,16 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
-import 'package:kyanite_nepal/component/app_list_view.dart';
 import 'package:kyanite_nepal/model/home_items_model.dart';
+import 'package:kyanite_nepal/view/component/app_list_view.dart';
+import 'package:kyanite_nepal/view/component/app_scaffold.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import 'app_page.dart';
 import 'home_detail_page.dart';
 
-class HomePage extends AppPageStateful {
+class HomePage extends StatefulPage {
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -25,21 +26,23 @@ class HomePage extends AppPageStateful {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return AppListView(
-      children: [
-        const _SocialLinks(),
-        SizedBox(
-          height: context.screenHeight / 3,
-          child: (HomeImagesModel.images?.isNotEmpty ?? false)
-              ? _HomeImageSwiper()
-              : const CircularProgressIndicator().p64().shimmer().centered(),
-        ),
-        (HomeShapesModel.shapes?.isNotEmpty ?? false)
-            ? _HomeShapesGrid()
-            : const LinearProgressIndicator(
-                value: 100,
-              ).p64().shimmer(),
-      ],
+    return AppScaffold(
+      body: AppListView(
+        children: [
+          const _SocialLinks(),
+          SizedBox(
+            height: context.screenHeight / 3,
+            child: (HomeImagesModel.images?.isNotEmpty ?? false)
+                ? _HomeImageSwiper()
+                : const CircularProgressIndicator().p64().shimmer().centered(),
+          ),
+          (HomeShapesModel.shapes?.isNotEmpty ?? false)
+              ? _HomeShapesGrid()
+              : const LinearProgressIndicator(
+                  value: 100,
+                ).p64().shimmer(),
+        ],
+      ),
     );
   }
 
@@ -62,10 +65,13 @@ class _HomePageState extends State<HomePage> {
 
     final shapes = decodedJson["shapes"];
 
-    setState(() {
-      HomeShapesModel.shapes =
-          List.from(shapes).map((e) => HomeItems.fromMap(e)).toList();
-    });
+    if (mounted) {
+      //not disposed
+      setState(() {
+        HomeShapesModel.shapes =
+            List.from(shapes).map((e) => HomeItems.fromMap(e)).toList();
+      });
+    }
   }
 
   loadImages() async {
@@ -79,10 +85,12 @@ class _HomePageState extends State<HomePage> {
 
     final images = decodedJson["gems"];
 
-    setState(() {
-      HomeImagesModel.images =
-          List.from(images).map((e) => HomeItems.fromMap(e)).toList();
-    });
+    if (mounted) {
+      setState(() {
+        HomeImagesModel.images =
+            List.from(images).map((e) => HomeItems.fromMap(e)).toList();
+      });
+    }
   }
 }
 
@@ -145,11 +153,11 @@ class _HomeShapesGrid extends StatelessWidget {
                           CupertinoIcons.add_circled,
                         ),
                       ),
-                      "abc"
+                      "\$${shape.price}"
                           .text
                           .extraBold
                           .color(context.theme.textSelectionColor)
-                          .xl3
+                          .xl2
                           .heightRelaxed
                           .make(),
                     ],
@@ -237,11 +245,21 @@ class _HomeImageSwiper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return VxSwiper.builder(
+      viewportFraction: 0.76,
+      //width of current swiper image
       autoPlay: true,
       enlargeCenterPage: true,
-      aspectRatio: context.isMobile ? 1 : 2,
+      //depends on aspect ratio
+      aspectRatio: context.isMobile ? 1.3 : 2,
       scrollDirection: context.isMobile ? Axis.horizontal : Axis.vertical,
       itemCount: HomeImagesModel.images!.length,
+      autoPlayAnimationDuration: const Duration(
+        //very slow auto-swipe animation
+        seconds: 2,
+      ),
+      pauseAutoPlayOnTouch: const Duration(
+        seconds: 2,
+      ),
       itemBuilder: (context, index) {
         final image = HomeImagesModel.images![index];
         return VxBox(
@@ -250,7 +268,9 @@ class _HomeImageSwiper extends StatelessWidget {
             .roundedLg
             .bgImage(
               DecorationImage(
-                image: NetworkImage(image.imageUrl),
+                image: NetworkImage(
+                  image.imageUrl,
+                ),
                 fit: BoxFit.fitHeight,
               ),
             )

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kyanite_nepal/component/app_app_bar.dart';
-import 'package:kyanite_nepal/component/app_bottom_bar.dart';
+import 'package:kyanite_nepal/view/component/app_app_bar.dart';
+import 'package:kyanite_nepal/view/component/app_bottom_bar.dart';
 
 class AppScaffold extends StatelessWidget {
   final Widget body;

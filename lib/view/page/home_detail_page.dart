@@ -1,16 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:kyanite_nepal/component/app_list_view.dart';
-import 'package:kyanite_nepal/component/app_scaffold.dart';
 import 'package:kyanite_nepal/model/home_items_model.dart';
+import 'package:kyanite_nepal/view/component/app_list_view.dart';
+import 'package:kyanite_nepal/view/component/app_scaffold.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'app_page.dart';
-
 class HomeDetailPage extends StatelessWidget {
-  final HomeItems shape;
+  final HomeItems _shape;
 
-  const HomeDetailPage(this.shape, {Key? key}) : super(key: key);
+  const HomeDetailPage(this._shape, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +16,11 @@ class HomeDetailPage extends StatelessWidget {
       body: AppListView(
         children: [
           Hero(
-            tag: Key(shape.id),
+            tag: Key(_shape.id),
             child: VxArc(
               height: 45,
               child: Image.network(
-                shape.imageUrl,
+                _shape.imageUrl,
                 height: context.screenHeight / 2.5,
                 width: context.screenWidth,
                 fit: BoxFit.fill,

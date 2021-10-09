@@ -46,6 +46,10 @@ class UserDrawer extends Dialog {
     return Dismissible(
       //this ensures screen doesnt have to be tapped after dismissing
       onDismissed: (direction) => context.navigator?.pop("dialog"),
+      //pop immediately for playstore-like effect. default is set to higher value
+      resizeDuration: const Duration(
+        milliseconds: 1,
+      ),
       dismissThresholds: const {
         //default is higher than this
         DismissDirection.down: 0.05,
@@ -66,6 +70,8 @@ class UserDrawer extends Dialog {
           ),
         ],
       ).backgroundColor(Colors.transparent).card.roundedLg.make().h32(context),
-    ).px32().py64().objectTopCenter();
+    ).px32().py64().objectTopCenter().glassMorphic(
+      blur: 1,
+    );
   }
 }
